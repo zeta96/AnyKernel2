@@ -6,7 +6,7 @@
 properties() { '
 kernel.string=AnyKernel2 Flasher for Xiaomi Santoni by @dencel007. All Credits: osm0sis and many other committers.
 do.devicecheck=1
-do.modules=0
+do.modules=1
 do.cleanup=1
 do.cleanuponabort=1
 device.name1=santoni
