@@ -4,7 +4,8 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=AnyKernel2 Flasher for Xiaomi Santoni by @dencel007. All Credits: osm0sis and many other committers.
+
+kernel.string=Rockstar Kernel by @Dhruv007
 do.devicecheck=1
 do.modules=0
 do.cleanup=1
