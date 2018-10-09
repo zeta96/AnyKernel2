@@ -30,6 +30,7 @@ ramdisk_compression=auto;
 chmod -R 750 $ramdisk/*;
 chmod -R 755 $ramdisk/sbin;
 chown -R root:root $ramdisk/*;
+chmod -R 750 $ramdisk/init.spectrum.rc
 
 
 ## AnyKernel install
@@ -43,6 +44,9 @@ if [ -f /fstab.qcom ]; then
 insert_line fstab.qcom "data f2fs" before "data ext4" "/dev/block/bootdevice/by-name/userdata /data   f2fs   nosuid,nodev,noatime,inline_xattr,data_flush wait,check,encryptable=footer,formattable,length=-16384";
 insert_line fstab.qcom "cache f2fs" after "data ext4" "/dev/block/bootdevice/by-name/cache    /cache  f2fs   nosuid,nodev,noatime,inline_xattr,flush_merge,data_flush wait,formattable,check";
 fi;
+
+# insert init.spectrum.rc in init.rc
+insert_line init.rc "import /init.spectrum.rc" after "import /init.trace.rc" "import /init.spectrum.rc";
 
 # end ramdisk changes
 
