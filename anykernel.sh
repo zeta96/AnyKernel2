@@ -52,14 +52,7 @@ fi;
 mount -o remount,rw /system;
 mount -o remount,rw /vendor;
 backup_file /system/vendor/etc/fstab.qcom;
-if [ -f /system/vendor/etc/fstab.qcom ]; then
-sed -i 's/encryptable=footer/encryptable=userdata/g' /system/vendor/etc/fstab.qcom;
-patch_fstab /system/vendor/etc/fstab.qcom /data f2fs options "rw,nosuid,nodev,noatime" "nosuid,nodev,noatime,data_flush";
-patch_fstab /system/vendor/etc/fstab.qcom /data ext4 options "rw,nosuid,nodev,noatime,noauto_da_alloc" "nosuid,nodev,noatime,noauto_da_alloc";
-patch_fstab /system/vendor/etc/fstab.qcom /cache f2fs options "nosuid,nodev,noatime,inline_xattr" "nosuid,nodev,noatime,inline_xattr,flush_merge,data_flush";
-patch_fstab /system/vendor/etc/fstab.qcom /data f2fs flags "wait,formattable,check,forceencrypt=footer,quota" "wait,check,encryptable=footer,formattable,length=-16384";
-patch_fstab /system/vendor/etc/fstab.qcom /data ext4 flags "wait,formattable,check,forceencrypt=footer,quota" "wait,check,encryptable=footer,formattable,length=-16384";
-fi;
+replace_file /system/vendor/etc/fstab.qcom "640" /patch/fstab.qcom;
 
 # insert init.spectrum.rc in init.rc
 insert_line init.rc "import /init.spectrum.rc" after "import /init.trace.rc" "import /init.spectrum.rc";
