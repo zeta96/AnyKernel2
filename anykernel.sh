@@ -48,10 +48,18 @@ fi;
 # SPECIAL TREATMENT for Encrypted Data Partitions in LOS and AEX Official builds
 # Thanks to @osm0sis, @mostafaz for scripts and Usman Mughal for figuring this out
 
-mount -o remount,rw /system;
-mount -o remount,rw /vendor;
+mount -o rw,remount -t auto /system;
+mount -o rw,remount -t auto /vendor 2>/dev/null;
 backup_file /system/vendor/etc/fstab.qcom;
-replace_file /system/vendor/etc/fstab.qcom 640 /fstab.qcom;
+if [ -e /system/vendor/etc/fstab.qcom ]; then
+	ui_print "fstab founded in vendor path";
+replace_file /system/vendor/etc/fstab.qcom "644" "/tmp/anykernel/patch/fstab.qcom";
+else
+  ui_print "fstab NOT found in vendor path";
+fi;
+
+mount -o ro,remount -t auto /system;
+mount -o ro,remount -t auto /vendor 2>/dev/null;
 
 # end ramdisk changes
 
