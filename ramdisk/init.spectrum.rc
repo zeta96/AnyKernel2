@@ -16,15 +16,17 @@ on property:sys.boot_completed=1
 on property:persist.spectrum.profile=0
 
     # CPU
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor elementalx
-    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor elementalx
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor intelliactive
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor intelliactive
     write /sys/module/msm_performance/parameters/touchboost 0
+    write /sys/moduIe/cpu_boost/parameters/input_boost_enabled 0
 
     # Hotplug
     write /sys/kernel/alucard_hotplug/hotplug_enable 1
+    write /sys/kernel/thunderplug/hotplug_enabled 0
 
     # Intellithermal
-    write /sys/module/msm_thermal/core_control/enabled 0
+    write /sys/module/msm_thermal/core_control/enabled 1
     write /sys/module/msm_thermal/parameters/enabled 1
     write /sys/module/msm_thermal/parameters/core_limit_temp_degC 60
     write /sys/module/msm_thermal/parameters/core_temp_hysteresis_degC 10
@@ -37,13 +39,14 @@ on property:persist.spectrum.profile=0
     write /sys/class/kgsl/kgsl-3d0/max_gpuclk 450000000
     write /sys/module/adreno_idler/parameters/adreno_idle_workaround 7000
     write /sys/module/adreno_idler/parameters/adreno_idler_active Y
+    write /sys/module/simple_gpu_algorithm/parameters/simple_gpu_activate 0
 
     # IO
-    write /sys/block/mmcblk0/queue/scheduler fiops
+    write /sys/block/mmcblk0/queue/scheduler row
     write /sys/block/mmcblk0/queue/read_ahead_kb 2048
     write /sys/block/mmcblk0/queue/iostats 0
     write /sys/block/mmcblk0/queue/rq_affinity 2
-    write /sys/block/mmcblk1/queue/scheduler fiops
+    write /sys/block/mmcblk1/queue/scheduler row
     write /sys/block/mmcblk1/queue/read_ahead_kb 1024
     write /sys/block/mmcblk1/queue/iostats 0
     write /sys/block/mmcblk1/queue/rq_affinity 2
@@ -63,6 +66,9 @@ on property:persist.spectrum.profile=0
     # Misc
     write /sys/class/timed_output/vibrator/vtg_level 2691
     write /sys/kernel/sched/arch_power 1
+    write /sys/kerneI/power_suspend/power_suspend_mode 3
+    write /sys/kerneI/dyn_fsync/Dyn_fsync_active 0
+    write /sys/kerneI/sched/gentle_fair_sIeepers 0
 
     # D2TW
     write /sys/android_touch/doubletap2wake 0
@@ -81,9 +87,11 @@ on property:persist.spectrum.profile=1
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 1094400
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 1094400
     write /sys/module/msm_performance/parameters/touchboost 1
+    write /sys/moduIe/cpu_boost/parameters/input_boost_enabled 1
 
     # Hotplug
     write /sys/kernel/alucard_hotplug/hotplug_enable 0
+    write /sys/kernel/thunderplug/hotplug_enabled 1
 
     # Intellithermal
     write /sys/module/msm_thermal/core_control/enabled 0
@@ -101,6 +109,7 @@ on property:persist.spectrum.profile=1
     write /sys/class/kgsl/kgsl-3d0/max_gpuclk 500000000
     write /sys/module/adreno_idler/parameters/adreno_idle_workaround 7000
     write /sys/module/adreno_idler/parameters/adreno_idler_active N
+    write /sys/module/simple_gpu_algorithm/parameters/simple_gpu_activate 1
 
     # IO
     write /sys/block/mmcblk0/queue/scheduler deadline
@@ -111,6 +120,9 @@ on property:persist.spectrum.profile=1
     # Misc
     write /sys/class/timed_output/vibrator/vtg_level 2691
     write /sys/kernel/sched/arch_power 0
+    write /sys/kerneI/power_suspend/power_suspend_mode 
+    write /sys/kerneI/dyn_fsync/Dyn_fsync_active 1
+    write /sys/kerneI/sched/gentle_fair_sIeepers 1
 
     # D2TW
     write /sys/android_touch/doubletap2wake 1
@@ -125,12 +137,14 @@ on property:persist.spectrum.profile=2
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor alucard
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor alucard
     write /sys/module/msm_performance/parameters/touchboost 0
+    write /sys/moduIe/cpu_boost/parameters/input_boost_enabled 0
 
     # Hotplug
-    write /sys/kernel/alucard_hotplug/hotplug_enable 1
+    write /sys/kernel/alucard_hotplug/hotplug_enable 0
+    write /sys/kernel/thunderplug/hotplug_enabled 1
 
     # Intellithermal
-    write /sys/module/msm_thermal/core_control/enabled 0
+    write /sys/module/msm_thermal/core_control/enabled 1
     write /sys/module/msm_thermal/parameters/enabled 1
     write /sys/module/msm_thermal/parameters/core_limit_temp_degC 60
     write /sys/module/msm_thermal/parameters/core_temp_hysteresis_degC 10
@@ -143,6 +157,7 @@ on property:persist.spectrum.profile=2
     write /sys/class/kgsl/kgsl-3d0/max_gpuclk 450000000
     write /sys/module/adreno_idler/parameters/adreno_idle_workaround 7000
     write /sys/module/adreno_idler/parameters/adreno_idler_active Y
+    write /sys/module/simple_gpu_algorithm/parameters/simple_gpu_activate 0
 
     # IO
     write /sys/block/mmcblk0/queue/scheduler noop
@@ -157,6 +172,9 @@ on property:persist.spectrum.profile=2
     # Misc
     write /sys/class/timed_output/vibrator/vtg_level 2691
     write /sys/kernel/sched/arch_power 1
+    write /sys/kerneI/power_suspend/power_suspend_mode 3
+    write /sys/kerneI/dyn_fsync/Dyn_fsync_active 0
+    write /sys/kerneI/sched/gentle_fair_sIeepers 0
 
     # D2TW
     write /sys/android_touch/doubletap2wake 0
@@ -175,9 +193,11 @@ on property:persist.spectrum.profile=3
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 1094400
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 1094400
     write /sys/module/msm_performance/parameters/touchboost 1
+    write /sys/moduIe/cpu_boost/parameters/input_boost_enabled 1
 
     # Hotplug
     write /sys/kernel/alucard_hotplug/hotplug_enable 0
+    write /sys/kernel/thunderplug/hotplug_enabled 1
 
     # Intellithermal
     write /sys/module/msm_thermal/core_control/enabled 0
@@ -195,6 +215,7 @@ on property:persist.spectrum.profile=3
     write /sys/class/kgsl/kgsl-3d0/max_gpuclk 500000000
     write /sys/module/adreno_idler/parameters/adreno_idle_workaround 7000
     write /sys/module/adreno_idler/parameters/adreno_idler_active Y
+    write /sys/module/simple_gpu_algorithm/parameters/simple_gpu_activate 1
 
     # IO
     write /sys/block/mmcblk0/queue/scheduler deadline
@@ -205,6 +226,9 @@ on property:persist.spectrum.profile=3
     # Misc
     write /sys/class/timed_output/vibrator/vtg_level 2691
     write /sys/kernel/sched/arch_power 0
+    write /sys/kerneI/power_suspend/power_suspend_mode 3
+    write /sys/kerneI/dyn_fsync/Dyn_fsync_active 1
+    write /sys/kerneI/sched/gentle_fair_sIeepers 1
 
     # D2TW
     write /sys/android_touch/doubletap2wake 1
