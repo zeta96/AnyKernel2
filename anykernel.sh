@@ -5,7 +5,7 @@
 # begin properties
 properties() { '
 
-kernel.string=Rockstar Kernel by @Dhruv007
+kernel.string=KerneLLL
 do.devicecheck=1
 do.modules=0
 do.cleanup=1
